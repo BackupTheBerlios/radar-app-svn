@@ -1,0 +1,24 @@
+{
+    IBClasses = (
+        {CLASS = FirstResponder; LANGUAGE = ObjC; SUPERCLASS = NSObject; }, 
+        {
+            ACTIONS = {selectRowInTableView = id; }; 
+            CLASS = MailSource; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {
+                theDatePicker = NSDatePicker; 
+                theMailboxesTableView = NSTableView; 
+                theScoreSlider = NSSlider; 
+            }; 
+            SUPERCLASS = Source; 
+        }, 
+        {CLASS = NSDatePicker; LANGUAGE = ObjC; SUPERCLASS = NSControl; }, 
+        {
+            CLASS = Source; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {thePreferencePane = NSView; }; 
+            SUPERCLASS = NSObject; 
+        }
+    ); 
+    IBVersion = 1; 
+}

@@ -1,0 +1,53 @@
+From MailSource.m:
+
+	// TODO
+//	NSURL* urlToIndex = [NSURL fileURLWithPath: @"/Users/reutter/Library/Mail/Envelope Index"];
+//	NSLog(@"urlToIndex = %@", urlToIndex);
+//	SKIndexRef mailIndex = SKIndexOpenWithURL((CFURLRef)urlToIndex, NULL, 0);
+//	NSLog(@"Got a mail index with %d numbers.", SKIndexGetDocumentCount(mailIndex));
+//	SKIndexClose(mailIndex);
+//	NSError* theError;
+	
+//	NSBundle* theBundle = [NSBundle bundleWithPath: @"/Applications/Mail.app"];
+//	[theBundle load];
+	
+//	NSManagedObjectModel* mom = [NSManagedObjectModel mergedModelFromBundles: [NSArray arrayWithObjects: theBundle, nil]];
+	
+//	NSLog(@"Bundle is %@", [NSBundle bundleWithPath: @"/Applications/Mail.app"]);
+//	NSLog(@"mom is %@", mom);
+	
+//	NSPersistentStoreCoordinator* psc = [[NSPersistentStoreCoordinator alloc] init];
+/*
+	NSPersistentDocument* pd = [[NSPersistentDocument alloc] init];
+	[pd readFromURL: urlToIndex
+			 ofType: NSSQLiteStoreType
+			  error: &theError];
+	
+	NSLog(@"persistent document is %@", pd);
+*/
+/*	NSSQ newStore = [psc addPersistentStoreWithType: NSSQLiteStoreType 
+									configuration: nil
+											  URL: urlToIndex
+										  options: [NSDictionary dictionaryWithObject: [NSNumber numberWithBool: YES]
+																			   forKey: NSReadOnlyPersistentStoreOption]
+											error: &theError];
+	NSLog(@"newStore is %@", newStore);
+*/	
+//	NSManagedObjectModel* mom = [psc managedObjectModel];
+	
+//	NSLog(@"mom is %@", mom);
+	
+//	NSFetchRequest* fr = [[NSFetchRequest alloc] init];
+	
+//	NSEntityDescription *entity = [[mom entitiesByName]  objectForKey: @"date_received"];
+//	[fr setEntity: entity];
+	
+//	NSLog(@"fr is %@", fr);
+	
+	/*
+	NSLog(@"---------------------------------------------");
+	NSLog(@"Meta Data is %@", metaData);
+	NSLog(@"---------------------------------------------");
+*/
+	// QuickLite Framework
+	
