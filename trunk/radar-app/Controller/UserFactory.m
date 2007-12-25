@@ -275,7 +275,7 @@
     objectValueForTableColumn:(NSTableColumn *)aTableColumn
     row:(int)rowIndex
 {
-	User* requestedUser = [theUser objectAtIndex: rowIndex];
+	User* requestedUser = [theUsers objectAtIndex: rowIndex];
 	id col_id = [aTableColumn identifier];
 	if ([@"ImageColumn" compare: col_id] == NSOrderedSame)
 	{
