@@ -13,6 +13,7 @@
 @interface Windows : NSObject {
 	IBOutlet NSWindow* theMainWindow;
 	IBOutlet NSWindow* thePreferencesWindow;
+	IBOutlet NSWindow* thePersonaeManagerWindow;
 
 // About-Panel settings
 	IBOutlet NSPanel* theAboutPanel;

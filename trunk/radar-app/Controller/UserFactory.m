@@ -268,14 +268,31 @@
 
 - (int)numberOfRowsInTableView:(NSTableView *)aTableView
 {
-	return [[self permanentUsers] count];
+	if ([aTableView tag] == COMPLETE_USER_TABLEVIEW)
+	{
+		return [theUsers count];
+	}
+	if ([aTableView tag] == PERMANENT_USER_TABLEVIEW)
+	{
+		return [[self permanentUsers] count];
+	}
+	return 0;
 }
 
 - (id)tableView:(NSTableView *)aTableView
     objectValueForTableColumn:(NSTableColumn *)aTableColumn
     row:(int)rowIndex
 {
-	User* requestedUser = [theUsers objectAtIndex: rowIndex];
+	
+	User* requestedUser;
+	if ([aTableView tag] == COMPLETE_USER_TABLEVIEW)
+	{
+		requestedUser = [theUsers objectAtIndex: rowIndex];
+	}
+	else
+	{
+		requestedUser = [[self permanentUsers] objectAtIndex: rowIndex];
+	}
 	id col_id = [aTableColumn identifier];
 	if ([@"ImageColumn" compare: col_id] == NSOrderedSame)
 	{
@@ -408,7 +425,7 @@
 
 - (IBAction) saveUsers: (id)sender
 {
-	NSLog(@"SAVE USERS>>>");
+	NSLog(@"Save Personae");
 	NSMutableArray* userPList = [[NSMutableArray alloc] init];
 	
 	NSArray* saveUsers = [self permanentUsers];

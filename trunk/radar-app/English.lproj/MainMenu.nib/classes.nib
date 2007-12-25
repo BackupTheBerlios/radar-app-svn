@@ -74,6 +74,8 @@
 				<string>NSTextField</string>
 				<key>theMainWindow</key>
 				<string>NSWindow</string>
+				<key>thePersonaeManagerWindow</key>
+				<string>NSWindow</string>
 				<key>thePreferencesWindow</key>
 				<string>NSWindow</string>
 				<key>theProgrammerText</key>
