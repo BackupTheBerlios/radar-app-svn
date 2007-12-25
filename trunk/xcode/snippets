@@ -51,3 +51,32 @@ From MailSource.m:
 */
 	// QuickLite Framework
 	
+
+
+
+
+
+//	[theABPeoplePicker deselectAll: self];
+	DLog(@"theABUsers = %@", theABUsers);
+	DLog(@"theABGroups = %@", theABGroups);
+	unsigned i;
+	if (theABGroups)
+	{
+		for (i = 0; i < [theABGroups count]; ++i)
+		{
+			DLog(@"[theABPeoplePicker selectGroup: [%@]\n         byExtendingSelection: %@", [theABGroups objectAtIndex: i], i?@"YES":@"NO");
+			[theABPeoplePicker selectGroup: [theABGroups objectAtIndex: i]
+					  byExtendingSelection: i];
+		}
+	}
+	if (theABUsers)
+	{
+		for (i = 0; i < [theABUsers count]; ++i)
+		{
+			DLog(@"[theABPeoplePicker selectRecord: [%@]\n          byExtendingSelection: %@", [theABUsers objectAtIndex: i], i?@"YES":@"NO");
+			[theABPeoplePicker selectRecord: [theABUsers objectAtIndex: i]
+					   byExtendingSelection: i];
+		}
+	}
+	
+	[self refreshABPeoplePicker];

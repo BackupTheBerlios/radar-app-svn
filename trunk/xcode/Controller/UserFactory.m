@@ -17,7 +17,8 @@
 
 @implementation UserFactory
 
-- (id) init {
+- (id) init
+{
 	self = [super init];
 	if (self != nil) {
 		theUsers = [[NSMutableArray alloc] initWithCapacity: 10]; // TODO: Save the last value and use it here.
@@ -36,6 +37,12 @@
 {
 	[theInfoView setFieldEditor: YES];
 	[self loadUsers: self];
+	[self refreshUsers: self];
+}
+
+- (IBAction) refreshUsers: (id)sender
+{
+	[theUsers removeObjectsInArray: [self usersFromAddressBook]];
 	[self importABUsersFromArray: [thePreferences usersFromAB]
 					 permanently: NO];
 	[self calculateUserScores];
@@ -60,6 +67,8 @@
 {
 	[theUserTable noteNumberOfRowsChanged];
 	[theUserTable reloadData];
+	[theDisplayTable noteNumberOfRowsChanged];
+	[theDisplayTable reloadData];
 	[theAvatarView setNeedsDisplay: YES];
 }
 
@@ -264,6 +273,23 @@
 	return [NSArray arrayWithArray: retAry];
 }
 
+- (NSArray*) usersFromAddressBook
+{
+	DSetContext(@"ABUsers");
+	unsigned i;
+	NSMutableArray* retAry = [NSMutableArray arrayWithCapacity: [theUsers count]];
+	for (i = 0; i < [theUsers count]; ++i)
+	{
+		if ([[[theUsers objectAtIndex: i] valueForKey: @"theSource"] isKindOfClass: [ABPerson class]])
+		{
+			[retAry addObject: [theUsers objectAtIndex: i]];
+		}
+	}
+	
+	DLog(@"Got the FOLLOWING: %@", retAry);
+	return [NSArray arrayWithArray: retAry];
+}
+
 // Table View Data Handling
 
 - (int)numberOfRowsInTableView:(NSTableView *)aTableView
@@ -380,47 +406,7 @@
 		[theUsers addObject: [newUser retain]];
 	}
 	
-	//[self addUsersFromABGroupWithID: [thePreferences valueForKey: @"theABGroupID"]];
-	
 	[self hasChanged];
-}
-
-- (void) addUsersFromABGroupWithID: (NSString*)uniqueID
-{
-	// Loading the Users from the group of the preferences
-	[self addUsersFromABGroupWithID: uniqueID 
-							inArray: [[ABAddressBook sharedAddressBook] groups]];
-}
-
-- (void) addUsersFromABGroupWithID: (NSString*)uniqueID inArray: (NSArray*)groupArray
-{
-	if (!uniqueID)
-	{
-		return;
-	}
-	
-	unsigned i;
-	ABGroup* myGroup;
-	
-	for (i = 0; i < [groupArray count]; ++i)
-	{
-		myGroup = [groupArray objectAtIndex: i];
-		if ([[myGroup uniqueId] compare: uniqueID] == NSOrderedSame)
-		{
-			[self addUsersFromABGroup: myGroup];
-			return;
-		}
-		
-		if ([[myGroup subgroups] count] > 0)
-		{
-			[self addUsersFromABGroupWithID: uniqueID inArray: [myGroup subgroups]];
-		}
-	}
-}
-
-- (void) addUsersFromABGroup: (ABGroup*)aGroup
-{
-	[self importABUsersFromArray: [aGroup members] permanently: NO];
 }
 
 - (IBAction) saveUsers: (id)sender

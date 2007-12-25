@@ -25,7 +25,7 @@
 	NSTimeInterval theRefreshTime;
 	
 	BOOL useABDirectly;
-	BOOL groupsFromABSelected;
+	NSArray* theABGroups;
 	NSArray* theABUsers;
 	
 	Source* theActiveSource;
@@ -42,6 +42,8 @@
 	@private NSSize Preferences__originalPrefWindowSize;
 	
 	NSDictionary* theSources;
+	
+	unsigned DEBUG__donotwant;
 }
 
 - (Source*) activeSource;
@@ -56,6 +58,8 @@
 - (void) savePreferences;
 - (NSArray*) saveABUsers;
 - (void) loadABUsersFromArray: (NSArray*) ary;
+- (void) loadABGroupsFromArray: (NSArray*) ary;
+- (NSArray*) saveABGroups;
 
 - (IBAction) applyPreferences: (id)sender;
 - (IBAction) refreshSourcePreferencesWindow: (id)sender;
@@ -77,6 +81,7 @@
 
 - (IBAction) switchABUsage: (id) sender;
 - (void) readABUsers;
+- (void) selectABUsers;
 - (void) refreshABPeoplePicker;
 
 // Combo Box INFORMAL Protocol Implementation

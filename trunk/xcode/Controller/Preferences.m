@@ -31,6 +31,8 @@
 		
 		[self loadPreferences];
 		DLog(@"Initialized self");
+		
+		DEBUG__donotwant = 0;
 	}
 	return self;
 }
@@ -91,6 +93,9 @@
 - (IBAction) resetPreferencePane: (id)sender
 {
 	DSetContext(@"resetPreferencePane");
+	
+	DEBUG__donotwant++;
+	DLog(@"CALLTIMES: %d, sender is %@", DEBUG__donotwant, [sender class]);
 	[theDefaultAvatarImageView setImage: theDefaultImage];
 	[theRefreshTimeField setIntValue: theRefreshTime];
 	[theRefreshTimeField sendAction: [theRefreshTimeField action] to: [theRefreshTimeField target]];
@@ -111,29 +116,6 @@
 		[theABUsageActivationButton setState: NSOffState];
 	}
 	
-	[theABPeoplePicker deselectAll: self];
-	DLog(@"Got Array: %@", theABUsers);
-	unsigned i;
-	if (theABUsers)
-	{
-		for (i = 0; i < [theABUsers count]; ++i)
-		{
-			if (groupsFromABSelected)
-			{
-				[theABPeoplePicker selectGroup: [theABUsers objectAtIndex: i]
-						  byExtendingSelection: i];
-			}
-			else
-			{
-				[theABPeoplePicker selectRecord: [theABUsers objectAtIndex: i]
-						   byExtendingSelection: i];
-			}
-		}
-	}
-	
-	NSLog(@"4");
-	[self refreshABPeoplePicker];
-	NSLog(@"5");
 }
 
 - (void) windowDidBecomeKey: (NSNotification*) aNotification
@@ -179,7 +161,6 @@
 	theActiveSource = [[[theSources objectForKey: selectedSource] alloc] init];
 	
 	useABDirectly = [[currentSettings valueForKey: @"UseABDirectly"] boolValue];
-	groupsFromABSelected = [[currentSettings valueForKey: @"ABGroupsSelected"] boolValue];
 	
 	NSArray* ary = [currentSettings valueForKey: @"ABUsers"];
 	if (ary)
@@ -189,6 +170,15 @@
 	else
 	{
 		theABUsers = NULL;
+	}
+	ary = [currentSettings valueForKey: @"ABGroups"];
+	if (ary)
+	{
+		[self loadABGroupsFromArray: ary];
+	}
+	else
+	{
+		theABGroups = NULL;
 	}
 }
 
@@ -205,9 +195,9 @@
 	[currentSettings setValue: selectedSource forKey: @"ActiveSource"];
 	
 	[currentSettings setValue: useABDirectly?@"YES":@"NO" forKey: @"UseABDirectly"];
-	[currentSettings setValue: groupsFromABSelected?@"YES":@"NO" forKey: @"ABGroupsSelected"];
 	
 	[currentSettings setValue: [self saveABUsers] forKey: @"ABUsers"];
+	[currentSettings setValue: [self saveABGroups] forKey: @"ABGroups"];
 	
 	NSData* defaultPictureFile = [[NSBitmapImageRep imageRepWithData: [theDefaultImage TIFFRepresentation]] representationUsingType: NSPNGFileType properties: nil];
 	
@@ -240,6 +230,25 @@
 	return [NSArray arrayWithArray: IDs];
 }
 
+- (NSArray*) saveABGroups
+{
+	if (!theABGroups)
+	{
+		return NULL;
+	}
+	
+	NSMutableArray* IDs = [NSMutableArray arrayWithCapacity: [theABGroups count]];
+	
+	unsigned i;
+	for (i = 0; i < [theABGroups count]; ++i)
+	{
+		[IDs addObject: [(ABRecord*)[theABGroups objectAtIndex: i] uniqueId]];
+	}
+	
+	return [NSArray arrayWithArray: IDs];	
+	
+}
+
 - (void) loadABUsersFromArray: (NSArray*) ary
 {
 	if (theABUsers)
@@ -248,7 +257,6 @@
 		theABUsers = NULL;
 	}
 	
-	NSLog(@"Here...");
 	NSMutableArray* newABUsers = [NSMutableArray arrayWithCapacity: [ary count]];
 	unsigned i;
 	for (i = 0; i < [ary count]; ++i)
@@ -264,6 +272,30 @@
 	[theABUsers retain];
 }
 
+- (void) loadABGroupsFromArray: (NSArray*) ary
+{
+	if (theABGroups)
+	{
+		[theABGroups release];
+		theABGroups = NULL;
+	}
+	
+	NSMutableArray* newABGroups = [NSMutableArray arrayWithCapacity: [ary count]];
+	unsigned i;
+	for (i = 0; i < [ary count]; ++i)
+	{
+		ABRecord* newRecord = [[ABAddressBook sharedAddressBook] recordForUniqueId: [ary objectAtIndex: i]];
+		if (newRecord)
+		{
+			[newABGroups addObject: newRecord];
+		}
+	}
+	
+	theABGroups = [NSArray arrayWithArray: newABGroups];
+	[theABGroups retain];
+}
+
+
 - (IBAction) applyPreferences: (id)sender
 {
 	[theActiveSource applyPreferencePaneSettings];
@@ -274,8 +306,7 @@
 	
 	[self readABUsers];
 	
-	[theUserFactory calculateUserScoresEvery: theRefreshTime];	
-	[theUserFactory calculateUserScores];
+	[theUserFactory refreshUsers: self];
 	
 	[self savePreferences];
 	[thePreferencesWindow close];
@@ -289,15 +320,20 @@
 		theABUsers = NULL;
 	}
 	
-	NSArray* recs = [theABPeoplePicker selectedRecords];
-	if ([recs count] == 0)
+	if (theABGroups)
 	{
-		groupsFromABSelected = YES;
-		recs = [theABPeoplePicker selectedGroups];
+		[theABGroups release];
+		theABGroups = NULL;
 	}
 	
-	theABUsers = [NSArray arrayWithArray: recs];
-	[theABUsers retain];
+	if ([[theABPeoplePicker selectedRecords] count] > 0)
+	{
+		theABUsers = [[theABPeoplePicker selectedRecords] retain];
+	}
+	if ([[theABPeoplePicker selectedGroups] count] > 0)
+	{
+		theABGroups = [[theABPeoplePicker selectedGroups] retain];
+	}
 }
 
 - (IBAction) refreshSourcePreferencesWindow: (id)sender
@@ -351,12 +387,44 @@
 		newFrame.size = Preferences__originalPrefWindowSize;
 	}
 	
+	// Do this here because of a quirk in the selection.
+	[self selectABUsers];
+	
 	deltaY -= newFrame.size.height;
 	newFrame.origin.y += deltaY;
 	
 	[thePreferencesWindow setFrame: newFrame display: YES animate: YES];
 }
 
+- (void) selectABUsers
+{
+	DSetContext(@"select AB Users");
+	//	[theABPeoplePicker deselectAll: self];
+	DLog(@"theABUsers = %@", theABUsers);
+	DLog(@"theABGroups = %@", theABGroups);
+	unsigned i;
+	if (theABGroups)
+	{
+		for (i = 0; i < [theABGroups count]; ++i)
+		{
+			DLog(@"[theABPeoplePicker selectGroup: [%@]\n         byExtendingSelection: %@", [theABGroups objectAtIndex: i], i?@"YES":@"NO");
+			[theABPeoplePicker selectGroup: [theABGroups objectAtIndex: i]
+					  byExtendingSelection: i];
+		}
+	}
+	if (theABUsers)
+	{
+		for (i = 0; i < [theABUsers count]; ++i)
+		{
+			DLog(@"[theABPeoplePicker selectRecord: [%@]\n          byExtendingSelection: %@", [theABUsers objectAtIndex: i], i?@"YES":@"NO");
+			[theABPeoplePicker selectRecord: [theABUsers objectAtIndex: i]
+					   byExtendingSelection: i];
+		}
+	}
+	
+	[self refreshABPeoplePicker];
+	
+}
 
 // Combo Box Elements
 
@@ -402,7 +470,7 @@
 {
 	if (useABDirectly)
 	{
-		return theABUsers;
+		return theABUsers?theABUsers:theABGroups;
 	}
 	else
 	{
@@ -410,6 +478,7 @@
 	}
 }
 
+// DEBUG CODE FOLLOWS
 #import <AddressBook/AddressBook.h>
 
 - (void) DEBUG__blubbWithPeople: (NSArray*) people
@@ -435,13 +504,28 @@
 
 - (IBAction) DEBUG__testAB: (id) sender
 {
-	NSArray* recs = [theABPeoplePicker selectedRecords];
-	if ([recs count] == 0)
+	DSetContext(@"THE DEBUG CONTEXT");
+	unsigned i;
+	if (theABGroups)
 	{
-		recs = [theABPeoplePicker selectedGroups];
+		for (i = 0; i < [theABGroups count]; ++i)
+		{
+			DLog(@"[theABPeoplePicker selectGroup: [%@]\n         byExtendingSelection: %@", [theABGroups objectAtIndex: i], i?@"YES":@"NO");
+			[theABPeoplePicker selectGroup: [theABGroups objectAtIndex: i]
+					  byExtendingSelection: i];
+		}
 	}
-	[self DEBUG__blubbWithPeople: recs];
-	NSLog(@"%d Groups too?", [[theABPeoplePicker selectedGroups] count]);
+	if (theABUsers)
+	{
+		for (i = 0; i < [theABUsers count]; ++i)
+		{
+			DLog(@"[theABPeoplePicker selectRecord: [%@]\n          byExtendingSelection: %@", [theABUsers objectAtIndex: i], i?@"YES":@"NO");
+			[theABPeoplePicker selectRecord: [theABUsers objectAtIndex: i]
+					   byExtendingSelection: i];
+		}
+	}
+	
+	[self refreshABPeoplePicker];
 }
 
 @end

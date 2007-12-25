@@ -7,12 +7,12 @@
 	<key>IBLastKnownRelativeProjectPath</key>
 	<string>../../Radar.xcodeproj</string>
 	<key>IBOldestOS</key>
-	<integer>4</integer>
+	<integer>5</integer>
 	<key>IBOpenObjects</key>
 	<array>
-		<integer>537</integer>
+		<integer>251</integer>
 		<integer>24</integer>
-		<integer>297</integer>
+		<integer>484</integer>
 	</array>
 	<key>IBSystem Version</key>
 	<string>9B18</string>

@@ -101,6 +101,8 @@
 				<string>id</string>
 				<key>openImagePanelForPanel</key>
 				<string>id</string>
+				<key>refreshUsers</key>
+				<string>id</string>
 				<key>removeUserByInterface</key>
 				<string>id</string>
 				<key>saveUserFromPanelInput</key>
@@ -120,6 +122,8 @@
 				<string>AvatarView</string>
 				<key>theControls</key>
 				<string>NSSegmentedControl</string>
+				<key>theDisplayTable</key>
+				<string>NSTableView</string>
 				<key>theInfoView</key>
 				<string>NSTextView</string>
 				<key>theNameField</key>

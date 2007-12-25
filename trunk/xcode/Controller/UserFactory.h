@@ -25,6 +25,7 @@
 	
 	// Displays of the Users
 	IBOutlet NSTableView* theUserTable;
+	IBOutlet NSTableView* theDisplayTable;
 	IBOutlet NSSegmentedControl* theControls;
 	
 	IBOutlet AvatarView* theAvatarView;
@@ -40,6 +41,7 @@
 
 - (IBAction) loadUsers: (id)sender;
 - (IBAction) saveUsers: (id)sender;
+- (IBAction) refreshUsers: (id)sender;
 - (void) applicationWillTerminate: (NSNotification*) aNotification;
 
 - (BOOL) addUser: (User*) newUser;
@@ -51,16 +53,12 @@
 - (void) updateControls;
 - (void) calculateUserScores;
 
-// Methods for non-permanent adding of ABGroup persons
-- (void) addUsersFromABGroupWithID: (NSString*)uniqueID;
-- (void) addUsersFromABGroupWithID: (NSString*)uniqueID inArray: (NSArray*)groupArray;
-- (void) addUsersFromABGroup: (ABGroup*)aGroup;
-
 - (void) importABUsersFromArray: (NSArray*) people permanently: (BOOL) permanently;
 - (BOOL) addNewUserFromABPerson: (ABPerson*) anABPerson;
 - (BOOL) addNewUserFromABPerson: (ABPerson*) anABPerson permanently: (BOOL) permanently;
 
 - (NSArray*) permanentUsers;
+- (NSArray*) usersFromAddressBook;
 
 /// Method to be called when an User is added or removed.
 /** This method checks the tag of the selected control in a segmented control structure.
