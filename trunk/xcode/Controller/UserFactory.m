@@ -425,7 +425,6 @@
 
 - (IBAction) saveUsers: (id)sender
 {
-	NSLog(@"Save Personae");
 	NSMutableArray* userPList = [[NSMutableArray alloc] init];
 	
 	NSArray* saveUsers = [self permanentUsers];
@@ -440,7 +439,7 @@
 	if (![NSKeyedArchiver archiveRootObject: userPList 
 									 toFile: [[thePreferences applicationSupportPathForceExistence: YES] stringByAppendingPathComponent: UserFactory__plistFileName]])
 	{
-		NSLog(@"Saving users failed."); // KEEP THIS LOG
+		NSLog(@"Saving personae failed."); // KEEP THIS LOG
 	}
 }
 
