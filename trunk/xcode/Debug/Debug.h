@@ -7,17 +7,21 @@
  *
  */
 
+
+/// The RADAR__DEBUG define controls the debug output.
+#ifdef RADAR__DEBUG // Debug is ON
+
 #import <Carbon/Carbon.h>
 
 @class NSString;
 
-#ifdef RADAR__DEBUG
-#define DSetContext(prefix) NSString* __DEBUG__context__ = [NSString stringWithFormat: @"<DEBUG> %@ - %@ : ", self, prefix]
+#define DSetContext(prefix) NSString* __DEBUG__context__ = [NSString stringWithFormat: @"%@ - %@", self, prefix]
+#define DLog(...) _DLog(__DEBUG__context__, __LINE__, __FILE__, __VA_ARGS__)
+void _DLog(NSString* context, unsigned line, char* file, NSString* fmt, ...);
 
-#define DLog(...) _DLog(__DEBUG__context__, __VA_ARGS__)
-void _DLog(NSString* context, NSString* fmt, ...);
-#else
-inline void DSetContext(NSString* prefix) {};
-inline void DResetContext() {};
-inline void DLog(NSString* fmt, ...) {};
+#else // Debug is OFF
+
+#define DSetContext(prefix) do{}while(0)
+#define DLog(args...) do{}while(0)
+
 #endif

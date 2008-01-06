@@ -97,7 +97,7 @@
 	
 	DLog(@"Done with selecting mailboxes. Selected: %@", selMboxes);
 	
-	NSMutableString* mailAddressesGlob = @"";
+//	NSMutableString* mailAddressesGlob = @"";
 	NSMutableString* namesGlob = [NSMutableString string];
 	
 	[namesGlob appendFormat: @"(addresses.comment GLOB \"*%@*\")", 
@@ -113,10 +113,10 @@
 	DLog(@"namesGlob is %@", namesGlob);
 	
 	
-	NSString* sqlStatement = [NSString stringWithFormat: @"SELECT messages.date_sent,addresses.address,addresses.comment FROM messages,addresses WHERE ((messages.date_sent >= %d) AND (messages.sender = addresses.ROWID AND (%@) AND (messages.original_mailbox IN (%@)));", 
-		(int)theEarliestDate, namesGlob, [selMboxes componentsJoinedByString: @","]];
+//	NSString* sqlStatement = [NSString stringWithFormat: @"SELECT messages.date_sent,addresses.address,addresses.comment FROM messages,addresses WHERE ((messages.date_sent >= %d) AND (messages.sender = addresses.ROWID AND (%@) AND (messages.original_mailbox IN (%@)));", 
+//		(int)theEarliestDate, namesGlob, [selMboxes componentsJoinedByString: @","]];
 	
-	DLog(@"sqlStatement = %@", sqlStatement);
+//	DLog(@"sqlStatement = %@", sqlStatement);
 	
 //	exit(0);
 	

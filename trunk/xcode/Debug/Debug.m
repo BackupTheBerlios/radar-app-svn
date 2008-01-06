@@ -11,12 +11,22 @@
 
 #ifdef RADAR__DEBUG
 
-void _DLog(NSString* context, NSString* fmt, ...)
+#import <Cocoa/Cocoa.h>
+
+static BOOL __DEBUG__firstRun = YES;
+void _DLog(NSString* context, unsigned line, char* file, NSString* fmt, ...)
 {
 	va_list ap;
 	va_start(ap, fmt);
 	
-	NSString* theText =[context stringByAppendingString: fmt];
+	if(__DEBUG__firstRun)
+	{
+		NSLog(@"[DEBUG] Radar.app debugging is ON! Look for [DEBUG LINE <number> FILE <path>] in the console output.");
+		__DEBUG__firstRun = NO;
+	}
+	
+	NSString* theText = [NSString stringWithFormat: @"[DEBUG LINE %d FILE %s] %@: %@", line, file, context, fmt];
+//	NSString* theText =[context stringByAppendingString: fmt];
 	
 	NSLogv(theText, ap);
 }

@@ -19,6 +19,8 @@
 		theInfo = nil;
 		theImage = nil;
 		theSource = nil;
+		theLastPosition.x = 0.0;
+		theLastPosition.y = 0.0;
 	}
 	return self;
 }
@@ -64,6 +66,15 @@
 - (float) score
 {
 	return theScore;
+}
+
+- (void) setLastPosition: (NSPoint) newPos
+{
+	theLastPosition = newPos;
+}
+- (NSPoint) lastPosition
+{
+	return theLastPosition;
 }
 
 - (NSComparisonResult)compareWith: (id) otherUser

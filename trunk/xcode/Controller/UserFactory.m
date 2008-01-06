@@ -181,7 +181,7 @@
 {
 	if (![theAddUserPanel isVisible])
 	{
-		theUserToEdit = [theUsers objectAtIndex: [[theUserTable selectedRowIndexes] firstIndex]];
+		theUserToEdit = [[self permanentUsers] objectAtIndex: [[theUserTable selectedRowIndexes] firstIndex]];
 		[theAddUserPanel setTitle: NSLocalizedString(@"Edit Persona", @"EditUserPanel Title")];
 		[theNameField setStringValue: [theUserToEdit valueForKey: @"theName"]];
 		[theInfoView setString: [[theUserToEdit valueForKey: @"theInfo"] copy]];
@@ -193,7 +193,8 @@
 
 - (IBAction) removeUserByInterface: (id) sender
 {
-	[theUsers removeObjectsAtIndexes: [theUserTable selectedRowIndexes]];
+	NSArray* theUsersToRemove = [[self permanentUsers] objectsAtIndexes: [theUserTable selectedRowIndexes]];
+	[theUsers removeObjectsInArray: theUsersToRemove];
 	[self hasChanged];
 }
 
@@ -244,6 +245,19 @@
 					   modalDelegate: self
 					  didEndSelector: @selector(openPanelDidEnd:returnCode:contextInfo:)
 						 contextInfo: @"ImageFileSelectPanel"];
+}
+
+- (IBAction) shufflePersonaPositions: (id) sender
+{
+	NSPoint newPos;
+	newPos.x = 0.0;
+	newPos.y = 0.0;
+	int i;
+	for (i = 0; i < [theUsers count]; ++i)
+	{
+		[[theUsers objectAtIndex: i] setLastPosition: newPos];
+	}
+	[self hasChanged];
 }
 
 - (void)openPanelDidEnd:(NSOpenPanel *)panel returnCode:(int)returnCode  contextInfo:(void  *)contextInfo

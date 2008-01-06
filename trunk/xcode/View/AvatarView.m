@@ -34,21 +34,27 @@
 	unsigned j = [theUsers count];
 	if (j == 0)
 	{
+		// No Personae to display
 		return;
 	}
 	for (i = j; i > 0; --i)
 	{
+		NSPoint userPos = [[theUsers objectAtIndex: i-1] lastPosition];
 		NSPoint coords = bounds.origin;
+		srandomdev();
 		
-		float xvalue = (float)i / j; // The x position in context
-		xvalue = 0.1 + 0.2 * (i % 5);
-		float yvalue = [[theUsers objectAtIndex: i-1] score];
+		while (userPos.x < 0.1)
+		{
+			userPos.x = ((float)(random()%10))/10.0;
+		}
 		
-		yvalue = 1.0 - yvalue; // The higher the more important the less away from the bottom...
+		userPos.y = 1.0 - [[theUsers objectAtIndex: i-1] score];
 		
-		xvalue -= 0.5 * yvalue * (xvalue - 0.5);
-		yvalue *= 0.5 * (2.5-yvalue);
-
+		[[theUsers objectAtIndex: i-1] setLastPosition: userPos];
+		
+		float xvalue = userPos.x - 0.5 * userPos.y * (userPos.x - 0.5);
+		float yvalue = userPos.y * 0.5 * (2.5-userPos.y);		
+		
 		coords.x += xvalue * bounds.size.width;
 		coords.y += yvalue * bounds.size.height;
 		
@@ -59,8 +65,6 @@
 		sizeFactor *= 1.0-(yvalue/2.0);
 		newSize.width *= sizeFactor;		
 		newSize.height *= sizeFactor;
-		
-//		[[theUsers objectAtIndex: i-1] setValue: coords forKey: @"theLastPosition"];
 		
 		coords.x -= newSize.width/2;
 		

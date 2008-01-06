@@ -44,6 +44,9 @@
 - (void) setScore: (float) newScore;
 - (float) score;
 
+- (void) setLastPosition: (NSPoint) newPos;
+- (NSPoint) lastPosition;
+
 - (NSComparisonResult)compareWith: (id) otherUser;
 
 - (NSDictionary*) dictionary;

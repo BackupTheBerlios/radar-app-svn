@@ -109,6 +109,8 @@
 				<string>id</string>
 				<key>saveUsers</key>
 				<string>id</string>
+				<key>shufflePersonaPositions</key>
+				<string>id</string>
 			</dict>
 			<key>CLASS</key>
 			<string>UserFactory</string>
