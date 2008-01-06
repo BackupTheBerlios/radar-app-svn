@@ -3,7 +3,7 @@
  *  Radar
  *
  *  Created by Daniel Reutter on 07.07.07.
- *  Copyright 2007 __MyCompanyName__. All rights reserved.
+ *  Copyright 2007 Techinsche Universitaet Muenchen. All rights reserved.
  *
  */
 

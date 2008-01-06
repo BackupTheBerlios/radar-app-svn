@@ -9,6 +9,10 @@
 #import <Cocoa/Cocoa.h>
 #import "Source.h"
 
+/** @File: This class should never be implemented. It only offers a convenient way to 
+  * add or remove children of the Source class that are selectable in the preference pane.
+  */
+
 @interface Sources : NSObject {
 
 }

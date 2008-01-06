@@ -118,10 +118,6 @@
 	
 }
 
-- (void) windowDidBecomeKey: (NSNotification*) aNotification
-{
-}
-
 - (void) windowWillClose: (NSNotification*) aNotification
 {
 	[self resetPreferencePane: self];
@@ -476,56 +472,6 @@
 	{
 		return NULL;
 	}
-}
-
-// DEBUG CODE FOLLOWS
-#import <AddressBook/AddressBook.h>
-
-- (void) DEBUG__blubbWithPeople: (NSArray*) people
-{
-	unsigned i;
-	
-	NSLog(@"Selected %d things", [people count]);
-	
-	for (i = 0; i < [people count]; ++i)
-	{
-		ABRecord* rec = [people objectAtIndex: i];
-		if ([rec isKindOfClass: [ABPerson class]])
-		{
-			NSLog(@"DEBUG__AB: Selected %@", [rec valueForProperty: kABLastNameProperty]);
-		}
-		else if ([rec isKindOfClass: [ABGroup class]])
-		{
-			NSLog(@"There's a class named %@", [rec valueForProperty: kABGroupNameProperty]);
-			[self DEBUG__blubbWithPeople: [(ABGroup*)rec members]];
-		}
-	}	
-}
-
-- (IBAction) DEBUG__testAB: (id) sender
-{
-	DSetContext(@"THE DEBUG CONTEXT");
-	unsigned i;
-	if (theABGroups)
-	{
-		for (i = 0; i < [theABGroups count]; ++i)
-		{
-			DLog(@"[theABPeoplePicker selectGroup: [%@]\n         byExtendingSelection: %@", [theABGroups objectAtIndex: i], i?@"YES":@"NO");
-			[theABPeoplePicker selectGroup: [theABGroups objectAtIndex: i]
-					  byExtendingSelection: i];
-		}
-	}
-	if (theABUsers)
-	{
-		for (i = 0; i < [theABUsers count]; ++i)
-		{
-			DLog(@"[theABPeoplePicker selectRecord: [%@]\n          byExtendingSelection: %@", [theABUsers objectAtIndex: i], i?@"YES":@"NO");
-			[theABPeoplePicker selectRecord: [theABUsers objectAtIndex: i]
-					   byExtendingSelection: i];
-		}
-	}
-	
-	[self refreshABPeoplePicker];
 }
 
 @end

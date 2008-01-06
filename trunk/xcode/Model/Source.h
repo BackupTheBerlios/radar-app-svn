@@ -11,15 +11,26 @@
 @class User;
 
 @interface Source : NSObject {
+	/// NSView with the content of the preference pane
+	/** The preference pane for each source is displayed not in a window but in a NSTabView.
+	  * This NSView represents the contents of the corresponding preference pane.
+	  */
 	IBOutlet NSView* thePreferencePane;
+	
+	/// NSString with the name for the preference pane as displayed in the corresponding NSTabView.
 	NSString* thePreferencePaneTitle;
 }
 
+/// Class method returning the name for the source to allow selection of it
 +(NSString*) sourceName;
 
+/// Method to load a nib file and save its content to thePreferencePane
 - (void)SI__loadNibFileNamed:(NSString*) theName;
 
+/// Method returning thePreferencePane NSView
 - (NSView*) preferencePaneView;
+
+/// Method returning thePreferencePaneTitle NSString
 - (NSString*) preferencePaneTitle;
 
 /*

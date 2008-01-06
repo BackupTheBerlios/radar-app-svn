@@ -3,10 +3,14 @@
  *  Radar
  *
  *  Created by Daniel Reutter on 07.07.07.
- *  Copyright 2007 __MyCompanyName__. All rights reserved.
+ *  Copyright 2007 Techinsche Universitaet Muenchen. All rights reserved.
  *
  */
 
+/** @File: This file consists of defines to ease debugging. One can use the DSetContext(NSString* context) method once in each code block
+  * And subsequently use the DLog(NSString msg, ...) method to output spiced-up debug information. If the macro RADAR__DEBUG is not defined,
+  * neither DSetContext nor DLog add any code to the program.
+  */
 
 /// The RADAR__DEBUG define controls the debug output.
 #ifdef RADAR__DEBUG // Debug is ON

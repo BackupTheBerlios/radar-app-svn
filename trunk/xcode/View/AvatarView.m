@@ -20,6 +20,10 @@
 	return self;
 }
 
+/// Draw the users contained by theUserFactory
+/** This method draws the users in theUserFactory.
+  * \todo This method needs maintenance.
+  */
 - (void)drawRect:(NSRect)rect
 {
 	NSRect bounds = [self bounds];

@@ -17,9 +17,10 @@
 +(NSDictionary*) sources
 {
 	return [NSDictionary dictionaryWithObjectsAndKeys: 
-		[MailSource class], [MailSource sourceName], 
-		[ExternalSource class], [ExternalSource sourceName], 
-			[SVNSource class], [SVNSource sourceName], nil];
+			[MailSource class], [MailSource sourceName],
+			[ExternalSource class], [ExternalSource sourceName],
+//			[SVNSource class], [SVNSource sourceName],
+			nil];
 }
 
 @end

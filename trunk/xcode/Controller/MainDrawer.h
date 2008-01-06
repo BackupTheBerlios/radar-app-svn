@@ -9,6 +9,8 @@
 #import <Cocoa/Cocoa.h>
 #import "UserFactory.h"
 
+/** @File: The MainDrawer class controls the drawer of the main window.
+  */
 @interface MainDrawer : NSObject {
 // Drawer settings
 	IBOutlet NSButton* theDrawerButton;
@@ -18,7 +20,7 @@
 	IBOutlet UserFactory* theUserFactory;
 }
 
-/// Delegate Methods for the Drawer Handling
+// Delegate Methods for the Drawer Handling
 - (void) drawerDidClose: (NSNotification*)notification;
 - (void) drawerDidOpen: (NSNotification*)notification;
 - (void) drawerWillClose: (NSNotification*)notification;

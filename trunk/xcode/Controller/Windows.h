@@ -8,7 +8,9 @@
 
 #import <Cocoa/Cocoa.h>
 
-/** @File: TODO: add description */
+/** @File: This class controls all main windows of the application.
+  * It has only full control over the about panel.
+  */
 
 @interface Windows : NSObject {
 	IBOutlet NSWindow* theMainWindow;

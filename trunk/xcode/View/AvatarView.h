@@ -12,6 +12,7 @@
 
 @interface AvatarView : NSView
 {
+	/// The UserFactory containing all users that are to be displayed
 	IBOutlet UserFactory* theUserFactory;
 }
 

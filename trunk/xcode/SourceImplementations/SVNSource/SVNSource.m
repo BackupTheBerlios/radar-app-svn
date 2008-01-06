@@ -3,7 +3,7 @@
 //  Radar
 //
 //  Created by Daniel Reutter on 19.12.07.
-//  Copyright 2007 __MyCompanyName__. All rights reserved.
+//  Copyright 2007 Techinsche Universitaet Muenchen. All rights reserved.
 //
 
 #import "SVNSource.h"

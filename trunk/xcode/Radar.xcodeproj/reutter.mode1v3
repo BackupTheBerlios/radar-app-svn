@@ -291,7 +291,7 @@
 								</array>
 							</array>
 							<key>PBXSmartGroupTreeModuleOutlineStateVisibleRectKey</key>
-							<string>{{0, 395}, {186, 676}}</string>
+							<string>{{0, 0}, {186, 676}}</string>
 						</dict>
 						<key>PBXTopSmartGroupGIDs</key>
 						<array/>
@@ -328,7 +328,7 @@
 								<key>PBXProjectModuleGUID</key>
 								<string>1CE0B20306471E060097A5F4</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>Debug.m</string>
+								<string>Doxyfile2</string>
 								<key>PBXSplitModuleInNavigatorKey</key>
 								<dict>
 									<key>Split0</key>
@@ -336,11 +336,11 @@
 										<key>PBXProjectModuleGUID</key>
 										<string>1CE0B20406471E060097A5F4</string>
 										<key>PBXProjectModuleLabel</key>
-										<string>Debug.m</string>
+										<string>Doxyfile2</string>
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>3595D3EC0D3146ED0020016B</string>
+										<string>3595D4010D3148BA0020016B</string>
 										<key>history</key>
 										<array>
 											<string>359FD4580C3142DB008FD586</string>
@@ -389,7 +389,8 @@
 											<string>3532E2E50D31424F00F685DB</string>
 											<string>3532E2E60D31424F00F685DB</string>
 											<string>3532E2E70D31424F00F685DB</string>
-											<string>3532E30B0D31424F00F685DB</string>
+											<string>3595D3FE0D3148BA0020016B</string>
+											<string>3595D3FF0D3148BA0020016B</string>
 										</array>
 										<key>prevStack</key>
 										<array>
@@ -440,6 +441,7 @@
 											<string>35CA1A290D1942FE00D9DAF3</string>
 											<string>35CA1A370D1942FE00D9DAF3</string>
 											<string>353DCD270D21706E00224052</string>
+											<string>3595D4000D3148BA0020016B</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -631,6 +633,8 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
+		<string>35ABF7AF0D0C2E04006C97A1</string>
+		<string>353DCD4A0D21706E00224052</string>
 		<string>/Users/reutter/radar-svn/Radar.xcodeproj</string>
 	</array>
 	<key>WindowString</key>
@@ -655,7 +659,7 @@
 								<key>PBXProjectModuleGUID</key>
 								<string>1CD0528F0623707200166675</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>MailSource.m</string>
+								<string></string>
 								<key>StatusBarVisibility</key>
 								<true/>
 							</dict>
@@ -672,8 +676,6 @@
 							<string>440pt</string>
 						</dict>
 						<dict>
-							<key>BecomeActive</key>
-							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
@@ -713,7 +715,7 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>35ABF7AF0D0C2E04006C97A1</string>
-				<string>3532E2390D2EA53300F685DB</string>
+				<string>3595D4020D3148BA0020016B</string>
 				<string>1CD0528F0623707200166675</string>
 				<string>XCMainBuildResultsModuleGUID</string>
 			</array>
@@ -1061,21 +1063,21 @@
 								<key>PBXProjectModuleGUID</key>
 								<string>1C78EAB2065D492600B07095</string>
 								<key>PBXProjectModuleLabel</key>
-								<string></string>
+								<string>Doxyfile2</string>
 								<key>StatusBarVisibility</key>
 								<true/>
 							</dict>
 							<key>GeometryConfiguration</key>
 							<dict>
 								<key>Frame</key>
-								<string>{{0, 0}, {1280, 453}}</string>
+								<string>{{0, 0}, {1280, 227}}</string>
 								<key>RubberWindowFrame</key>
 								<string>0 4 1280 774 0 0 1280 778 </string>
 							</dict>
 							<key>Module</key>
 							<string>PBXNavigatorGroup</string>
 							<key>Proportion</key>
-							<string>453pt</string>
+							<string>227pt</string>
 						</dict>
 						<dict>
 							<key>BecomeActive</key>
@@ -1110,19 +1112,19 @@
 								<key>PBXProjectModuleLabel</key>
 								<string>SCM Results</string>
 								<key>SCMActivityViewerShowingDefaultKey</key>
-								<string>{{0, 275}, {1280, 0}}</string>
+								<string>{{0, 385}, {1280, 116}}</string>
 							</dict>
 							<key>GeometryConfiguration</key>
 							<dict>
 								<key>Frame</key>
-								<string>{{0, 458}, {1280, 275}}</string>
+								<string>{{0, 232}, {1280, 501}}</string>
 								<key>RubberWindowFrame</key>
 								<string>0 4 1280 774 0 0 1280 778 </string>
 							</dict>
 							<key>Module</key>
 							<string>PBXCVSModule</string>
 							<key>Proportion</key>
-							<string>275pt</string>
+							<string>501pt</string>
 						</dict>
 					</array>
 					<key>Proportion</key>
@@ -1140,7 +1142,7 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>353DCD4A0D21706E00224052</string>
-				<string>352227000D2BE6BD002E9C44</string>
+				<string>3595D3F90D3148910020016B</string>
 				<string>1C78EAB2065D492600B07095</string>
 				<string>1CD052920623707200166675</string>
 			</array>

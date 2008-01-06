@@ -15,6 +15,7 @@
 
 @interface UserFactory : NSObject
 {
+	/// Array of all users created by the UserFactory object
 	NSMutableArray* theUsers;
 	
 	// Add Persona Panel outlets
@@ -36,28 +37,80 @@
 	
 	NSTimer* theCalculateUserTimer;
 	
+	/// NSString path to the .plist where all users are saved
 	@private NSString* UserFactory__plistFileName;
 }
 
+/// IBAction to load all permanent users
 - (IBAction) loadUsers: (id)sender;
+
+/// IBAction to save all permanent users
+/** Users are saved by sending a dictionary message to them and storing the results to
+ * the .plist at UserFactory__plistFileName.
+ */
 - (IBAction) saveUsers: (id)sender;
+
+/// IBAction to refresh the user list
+/** This method re-reads all non-permanent users (those selected from the address book)
+  * and scores every user. Afterwards the users are redrawn by AvatarView.
+  */
 - (IBAction) refreshUsers: (id)sender;
+
+/// Clean up of the UserFactory object before termination
+/** This method saves all permanent users by calling saveUsers to prevent data loss when the application is quit.
+  */
 - (void) applicationWillTerminate: (NSNotification*) aNotification;
 
+/// Add newUser to theUsers
 - (BOOL) addUser: (User*) newUser;
+
+/// Add newUser to theUsers with the respective attributes
 - (BOOL) addNewUserWithName: (NSString*)aName withInfo: (NSString*)anInfo withImage: (NSImage*)anImage;
+
+/// Returns theUsers as NSArray to prevent external change
 - (NSArray*) allUsers;
 
+/// Inform of a change in theUsers NSMutableArray
 - (void) hasChanged;
+
+/// Reorder theUser NSMutableArray
 - (void) reorderUsers;
+
+/// Update the controls for the permanent user list
+/** This method dis- and enables buttons near the permanent user NSTableView
+  * which are there to editing and deletion of users.
+  */
 - (void) updateControls;
+
+/// Calculate the scores for all users in theUsers NSMutableArray
 - (void) calculateUserScores;
 
+/// Import AddressBook persons to theUsers
+/** The NSArray may only contain ABPerson objects. Whether the addition is permanently,
+  * They will be treated as permanent entries (and thus saved at exit) or not.
+  */
 - (void) importABUsersFromArray: (NSArray*) people permanently: (BOOL) permanently;
+
+/// Add ABPerson anABPerson to theUsers permanently.
+/** Same as calling addNewUserFromABPerson: anABPerson permanently: YES
+  */
 - (BOOL) addNewUserFromABPerson: (ABPerson*) anABPerson;
+
+/// Add ABPerson anABPerson to theUsers
+/** Whether the addition is permanently, the ABPerson to be added
+  * will be treated as permanent entries (and thus saved at exit) or not.
+  */
 - (BOOL) addNewUserFromABPerson: (ABPerson*) anABPerson permanently: (BOOL) permanently;
 
+/// NSArray of all permanent users
+/** Permanent users are saved at exit and loaded at creation of the UserFactory object.
+  */
 - (NSArray*) permanentUsers;
+
+/// NSArray of all users non-permanently imported from the address book
+/** Non-permanent address book persons are newly loaded each time the selection at the Prefereneces
+  * changes. Furthermore the data is received directly from the AddressBook.
+  */
 - (NSArray*) usersFromAddressBook;
 
 /// IBAction Method to be called when an User is added or removed.
@@ -119,7 +172,6 @@
   */
 - (IBAction) shufflePersonaPositions: (id) sender;
 
-/// Methods for Table Data
 - (id)tableView:(NSTableView *)aTableView
     objectValueForTableColumn:(NSTableColumn *)aTableColumn
     row:(int)rowIndex;
@@ -129,8 +181,11 @@
 - (void)tableViewSelectionDidChange:(NSNotification *)aNotification;
 
 /// Timer method to be set for the timer
+/** This method called by the NSTimer set in calculateScoresEvery: is a wrapper for calculateUserScore.
+  */
 - (void) calculateUserScoresTimer: (NSTimer*) theTimer;
 
+/// Sets NSTimer for cyclic user score calculation every theInterval
 - (void) calculateUserScoresEvery: (NSTimeInterval) theInterval;
 
 @end
