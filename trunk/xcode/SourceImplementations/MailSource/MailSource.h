@@ -20,6 +20,9 @@
 	/// NSTableView to alter theSelectedMailboxes
 	IBOutlet NSTableView* theMailboxesTableView;
 	
+	/// NSTextField to display theScore as set at theScoreSlider
+	IBOutlet NSTextField* theScoreTextfield;
+	
 	/// NSMutableArray of all existing mailboxes
 	NSMutableArray* mailboxes;
 	
@@ -36,14 +39,22 @@
 	@private NSString* MailSource__prefPath;
 }
 
+/// Returns a string to use for a dictionary key
+/** Since NSDictionary keys need to be a string commencing with a lowercase letter,
+  * this method returns a usable string.
+  */
+- (NSString*) stringForRowIDKey: (id) rowID;
+
 /// Reloads the mailboxes NSMutableArray
 /** Since the lookup of the mailboxes may be tiring, this is not done every time the scoring takes place.
   * This method saves the existing mailboxes in the NSMutableArray.
   */
 - (void)reloadTheMailboxes;
 
+/// IBAction to deselect all mailboxes
 - (IBAction) deselectAll:(id)sender;
 
+/// IBAction to select all mailboxes
 - (IBAction) selectAll:(id)sender;
 
 /// Informal protocol method to display the mailboxes in theMailboxesTableView

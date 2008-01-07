@@ -33,6 +33,8 @@
 #define MSPREF__EARLIESTDATE @"EarliestDate"
 #define MSPREF__THESCORE @"Score"
 
+#define MS__ROWIDKEYIDENTIFIER @"rowID__"
+
 @implementation MailSource
 
 - (id) init
@@ -61,6 +63,11 @@
 +(NSString*) sourceName
 {
 	return @"Mail Source";
+}
+
+- (NSString*) stringForRowIDKey: (id) rowID
+{
+	return [NSString stringWithFormat: @"%@%@", MS__ROWIDKEYIDENTIFIER, rowID];
 }
 
 - (void) scoreUsersInArray: (NSArray*) theUsers
@@ -188,23 +195,34 @@
 	DLog(@"Mailboxes are %@", mailboxes);
 	unsigned i;
 	
-	DLog(@"Commencing Loop");
+	DLog(@"Commencing Loop, selectedMailboxes is %@", theSelectedMailboxes);
 	for (i = 0; i < [cursor rowCount]; ++i)
 	{
+		
 		NSDictionary* theRow = [cursor valuesForRow: i];
 		
+		DLog(@"Row is %@", theRow);
 		NSString* theTableURLString = [theRow objectForKey: MS__MailboxesTableURLString];
-		NSString* theROWIDString = [theRow objectForKey: MS__MailboxesTableROWIDString];
 		
-		NSNumber* theNumber = [theSelectedMailboxes objectForKey: theROWIDString];
-		if (theNumber == nil)
+		// The object returned is not a string, therefore be careful about this.
+		id theROWID = [theRow objectForKey: MS__MailboxesTableROWIDString];
+		
+		NSNumber* theNumber = NULL;
+		
+		if (theSelectedMailboxes != NULL)
+		{
+			theNumber = [theSelectedMailboxes valueForKey: [self stringForRowIDKey: theROWID]];
+		}
+		//DLog(@"The Number for %@ is %@", theROWIDString, theNumber);
+		//DLog(@"You could find something like %@ with %@, but you use %@", [theSelectedMailboxes valueForKey: [[theSelectedMailboxes allKeys] objectAtIndex: 0]], [[theSelectedMailboxes allKeys] objectAtIndex: 0], theROWIDString);
+		if (theNumber == NULL)
 		{
 			theNumber = [NSNumber numberWithBool: TRUE];
 		}
 		
 		NSMutableArray* theArray = [NSMutableArray arrayWithObjects:
 			theTableURLString,
-			theROWIDString,
+			theROWID,
 			theNumber,
 			nil];
 		
@@ -223,6 +241,7 @@
 	[theMailboxesTableView reloadData];
 	
 	[theScoreSlider setFloatValue: theScore];
+	[theScoreTextfield takeFloatValueFrom: theScoreSlider];
 	[theDatePicker setDateValue: [NSDate dateWithTimeIntervalSince1970: theEarliestDate]];
 }
 
@@ -246,7 +265,7 @@
 	for (i = 0; i < [mailboxes count]; ++i)
 	{
 		[newSelected setValue: [[mailboxes objectAtIndex: i] objectAtIndex: MS__ARYSELECTEDPOS] 
-					   forKey: [[mailboxes objectAtIndex: i] objectAtIndex: MS__ARYROWIDPOS]];
+					   forKey: [self stringForRowIDKey: [[mailboxes objectAtIndex: i] objectAtIndex: MS__ARYROWIDPOS]]];
 	}
 	
 	[currentSettings setValue: newSelected

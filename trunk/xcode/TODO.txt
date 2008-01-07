@@ -1,5 +1,4 @@
 TODO für SEP:
 
-1. Deselect all-Knopf in Preferences in MailSource
 2. Information durch Mouse-Over in AvatarView
 3. Edit ABPersons im AddressBook

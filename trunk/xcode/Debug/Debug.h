@@ -19,7 +19,7 @@
 
 @class NSString;
 
-#define DSetContext(prefix) NSString* __DEBUG__context__ = [NSString stringWithFormat: @"%@ - %@", self, prefix]
+#define DSetContext(prefix) NSString* __DEBUG__context__ = [NSString stringWithFormat: @"%@ - %@", self, prefix]; _DLog(__DEBUG__context__, __LINE__, __FILE__, @"Entering context %@", prefix)
 #define DLog(...) _DLog(__DEBUG__context__, __LINE__, __FILE__, __VA_ARGS__)
 void _DLog(NSString* context, unsigned line, char* file, NSString* fmt, ...);
 

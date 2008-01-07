@@ -39,6 +39,8 @@
 				<string>NSTableView</string>
 				<key>theScoreSlider</key>
 				<string>NSSlider</string>
+				<key>theScoreTextfield</key>
+				<string>NSTextField</string>
 			</dict>
 			<key>SUPERCLASS</key>
 			<string>Source</string>
