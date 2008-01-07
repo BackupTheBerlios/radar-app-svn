@@ -179,6 +179,7 @@
 		358A984F0BFC8A7500A6D2F6 /* Radar.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Radar.icns; sourceTree = "<group>"; };
 		359266A00C0DDAA500BC54FB /* MainDrawer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainDrawer.h; sourceTree = "<group>"; };
 		359266A10C0DDAA500BC54FB /* MainDrawer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainDrawer.m; sourceTree = "<group>"; };
+		35958A3A0D32689A004B4271 /* TODO.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = TODO.txt; sourceTree = "<group>"; };
 		359FD43B0C2FF6A1008FD586 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = /System/Library/Frameworks/AddressBook.framework; sourceTree = "<absolute>"; };
 		35BB9BA30C3D0CC400F670A5 /* snippets */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = snippets; sourceTree = "<group>"; };
 		35CA1A0A0D19415800D9DAF3 /* SVNSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SVNSource.h; path = SourceImplementations/SVNSource/SVNSource.h; sourceTree = SOURCE_ROOT; };
@@ -271,6 +272,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				35958A3A0D32689A004B4271 /* TODO.txt */,
 				353B40720C15CDC10020A379 /* Localizable.strings */,
 				8D1107310486CEB800E47090 /* Info.plist */,
 				089C165CFE840E0CC02AAC07 /* InfoPlist.strings */,

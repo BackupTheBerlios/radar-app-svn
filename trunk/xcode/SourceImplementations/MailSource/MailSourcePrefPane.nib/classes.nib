@@ -1,24 +1,66 @@
-{
-    IBClasses = (
-        {CLASS = FirstResponder; LANGUAGE = ObjC; SUPERCLASS = NSObject; }, 
-        {
-            ACTIONS = {selectRowInTableView = id; }; 
-            CLASS = MailSource; 
-            LANGUAGE = ObjC; 
-            OUTLETS = {
-                theDatePicker = NSDatePicker; 
-                theMailboxesTableView = NSTableView; 
-                theScoreSlider = NSSlider; 
-            }; 
-            SUPERCLASS = Source; 
-        }, 
-        {CLASS = NSDatePicker; LANGUAGE = ObjC; SUPERCLASS = NSControl; }, 
-        {
-            CLASS = Source; 
-            LANGUAGE = ObjC; 
-            OUTLETS = {thePreferencePane = NSView; }; 
-            SUPERCLASS = NSObject; 
-        }
-    ); 
-    IBVersion = 1; 
-}
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IBClasses</key>
+	<array>
+		<dict>
+			<key>CLASS</key>
+			<string>Source</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>OUTLETS</key>
+			<dict>
+				<key>thePreferencePane</key>
+				<string>NSView</string>
+			</dict>
+			<key>SUPERCLASS</key>
+			<string>NSObject</string>
+		</dict>
+		<dict>
+			<key>ACTIONS</key>
+			<dict>
+				<key>deselectAll</key>
+				<string>id</string>
+				<key>selectAll</key>
+				<string>id</string>
+				<key>selectRowInTableView</key>
+				<string>id</string>
+			</dict>
+			<key>CLASS</key>
+			<string>MailSource</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>OUTLETS</key>
+			<dict>
+				<key>theDatePicker</key>
+				<string>NSDatePicker</string>
+				<key>theMailboxesTableView</key>
+				<string>NSTableView</string>
+				<key>theScoreSlider</key>
+				<string>NSSlider</string>
+			</dict>
+			<key>SUPERCLASS</key>
+			<string>Source</string>
+		</dict>
+		<dict>
+			<key>CLASS</key>
+			<string>FirstResponder</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>SUPERCLASS</key>
+			<string>NSObject</string>
+		</dict>
+		<dict>
+			<key>CLASS</key>
+			<string>NSDatePicker</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>SUPERCLASS</key>
+			<string>NSControl</string>
+		</dict>
+	</array>
+	<key>IBVersion</key>
+	<string>1</string>
+</dict>
+</plist>

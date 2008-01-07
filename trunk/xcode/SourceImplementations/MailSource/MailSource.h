@@ -42,6 +42,10 @@
   */
 - (void)reloadTheMailboxes;
 
+- (IBAction) deselectAll:(id)sender;
+
+- (IBAction) selectAll:(id)sender;
+
 /// Informal protocol method to display the mailboxes in theMailboxesTableView
 - (id)tableView:(NSTableView *)aTableView
     objectValueForTableColumn:(NSTableColumn *)aTableColumn

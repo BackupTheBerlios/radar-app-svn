@@ -112,60 +112,39 @@
 	
 	DLog(@"namesGlob is %@", namesGlob);
 	
-	
-//	NSString* sqlStatement = [NSString stringWithFormat: @"SELECT messages.date_sent,addresses.address,addresses.comment FROM messages,addresses WHERE ((messages.date_sent >= %d) AND (messages.sender = addresses.ROWID AND (%@) AND (messages.original_mailbox IN (%@)));", 
-//		(int)theEarliestDate, namesGlob, [selMboxes componentsJoinedByString: @","]];
-	
-//	DLog(@"sqlStatement = %@", sqlStatement);
-	
-//	exit(0);
-	
 	DLog(@"Initiating Main Loop.");
 	for (i = 0; i < [theUsers count]; ++i)
 	{
-//		DLog(@"MAILSOURCE MAIN SCORING LOOP BEGIN");
 		User* theUser = [theUsers objectAtIndex: i];
-//		DLog(@"Score for user %@", [theUser valueForKey: @"theName"]);
 		NSString* nameGlob = [[[theUser valueForKey: @"theName"] componentsSeparatedByString: @" "] componentsJoinedByString: @"*"];
-//		DLog(@"NameGlob is %@", nameGlob);
-		NSString* sqlStatement = [NSString stringWithFormat: @"SELECT date_sent FROM messages WHERE (sender IN (SELECT ROWID FROM addresses WHERE comment GLOB \"*%@*\")) AND (original_mailbox IN (%@));", nameGlob, [selMboxes componentsJoinedByString: @","]];
-//		DLog(@"SQL Statement is %@", sqlStatement);
 		
-//		DLog(@"Initiating query.");
+		NSString* sqlStatement = [NSString stringWithFormat: @"SELECT date_sent FROM messages WHERE (sender IN (SELECT ROWID FROM addresses WHERE comment GLOB \"*%@*\")) AND (original_mailbox IN (%@));", nameGlob, [selMboxes componentsJoinedByString: @","]];
+		
 		QuickLiteCursor* cursor = [db performQuery: sqlStatement];
-//		DLog(@"Query performed.");
 		
 		if (cursor == nil)
 		{
-//			DLog(@"No database entries...");
 			NSLog(@"No database entries.");
 			continue;
 		}
-//		DLog(@"Database entries are %@", cursor);
 		
 		double totalScore = 0;
 		double now = [[NSDate dateWithTimeIntervalSinceNow: 0.0] timeIntervalSince1970];
 		
 		unsigned j;
 		
-//		DLog(@"Counting Rows.");
 		for (j = 0; j < [cursor rowCount]; ++j)
 		{
-//			DLog(@"Row number %d", j);
 			double msgDate = [[[[cursor valuesForRow: j] allValues] objectAtIndex: 0] doubleValue];
 			if (msgDate > theEarliestDate)
 			{
 				totalScore += theScore * (msgDate - theEarliestDate) / (now - theEarliestDate);
 			}
-//			DLog(@"Row done.");
 		}
-		
-//		DLog(@"Got a score of %f.", totalScore);
 		
 		totalScore=(totalScore>1.0)?1.0:totalScore;
 		
 		[theUser setScore: totalScore];
-//		DLog(@"MAILSOURCE MAIN SCORING LOOP END");
 	}
 	
 	//[db release];
@@ -212,7 +191,6 @@
 	DLog(@"Commencing Loop");
 	for (i = 0; i < [cursor rowCount]; ++i)
 	{
-//		DLog(@"Loop %d", i);
 		NSDictionary* theRow = [cursor valuesForRow: i];
 		
 		NSString* theTableURLString = [theRow objectForKey: MS__MailboxesTableURLString];
@@ -229,23 +207,21 @@
 			theROWIDString,
 			theNumber,
 			nil];
-		//		NSArray* theArray = [NSArray arrayWithObjects: [NSString stringWithString: @"123"], [NSString stringWithString: @"Bla"], [NSNumber numberWithBool: TRUE], nil];
-//		DLog(@"Adding object %@ to mailboxes.", theArray);
+		
 		[mailboxes addObject: theArray];
-//		DLog(@"Added.");
-//		DLog(@"Loop %d done", i);
 	}
 	
 	[db closeSavingChanges: NO];
 	
 	[mailboxes retain];
+	DLog(@"Mailbox reloading is done.");
 }
 
 - (void)initPreferencePane
 {
 	[self reloadTheMailboxes];
 	[theMailboxesTableView reloadData];
-
+	
 	[theScoreSlider setFloatValue: theScore];
 	[theDatePicker setDateValue: [NSDate dateWithTimeIntervalSince1970: theEarliestDate]];
 }
@@ -328,6 +304,28 @@
 	{
 		theEarliestDate = [[NSDate dateWithTimeIntervalSinceNow: -60.0*60.0*24.0*14.0] timeIntervalSince1970];
 	}
+}
+
+- (IBAction) deselectAll:(id)sender
+{
+	unsigned i;
+	for (i = 0; i < [mailboxes count]; ++i)
+	{
+		[[mailboxes objectAtIndex: i] replaceObjectAtIndex: MS__ARYSELECTEDPOS
+												withObject: [NSNumber numberWithBool: NO]];
+	}
+	[theMailboxesTableView reloadData];
+}
+
+- (IBAction) selectAll:(id)sender
+{
+	unsigned i;
+	for (i = 0; i < [mailboxes count]; ++i)
+	{
+		[[mailboxes objectAtIndex: i] replaceObjectAtIndex: MS__ARYSELECTEDPOS
+												withObject: [NSNumber numberWithBool: YES]];
+	}
+	[theMailboxesTableView reloadData];
 }
 
 - (id)tableView:(NSTableView *)aTableView
