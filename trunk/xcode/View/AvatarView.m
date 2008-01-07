@@ -49,7 +49,7 @@
 		
 		while (userPos.x < 0.1)
 		{
-			userPos.x = ((float)(random()%10))/10.0;
+			userPos.x = ((float)(random()%100))/100.0;
 		}
 		
 		userPos.y = 1.0 - [[theUsers objectAtIndex: i-1] score];
