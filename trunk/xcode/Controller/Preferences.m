@@ -135,20 +135,46 @@
 
 - (void) loadPreferences
 {
+	DSetContext(@"Load Main Preferences");
 	NSDictionary* currentSettings = [NSDictionary dictionaryWithContentsOfFile: Preferences__mainPlistPath];
+	
+	if ([[[[NSBundle mainBundle] infoDictionary] valueForKey: @"CFBundleVersion"] isEqualToString: [currentSettings valueForKey: @"Version"]] != NSOrderedSame)
+	{
+		DLog(@"Bundle Version and Preferences Version differ!");
+		// TODO: Do some things here - like offering deletion of old versions.
+		DLog(@"TODO: Do some things here - like offering deletion of old versions.");
+	}
 	
 	theRefreshTime = [[currentSettings valueForKey: @"RefreshTime"] floatValue];
 	if (theRefreshTime < 0.01)
 	{
 		theRefreshTime = 10.0;
 	}
-
+	
 	theDefaultImage = [[NSImage alloc] initWithContentsOfFile: [[self applicationSupportPath] stringByAppendingPathComponent: @"default.png"]];
 	
 	if (theDefaultImage == nil)
 	{
 		[theDefaultImage release];
 		theDefaultImage = [[NSImage alloc] initWithContentsOfFile: [[NSBundle mainBundle] pathForImageResource: @"Default.png"]];
+	}
+	
+	maxImageSize = NSSizeFromString([currentSettings valueForKey: @"MaxPersonaImageDimensions"]);
+	
+	if (maxImageSize.height * maxImageSize.width < 1)
+	{
+		maxImageSize.height = 100;
+		maxImageSize.width = 100;
+	}
+	
+	id retainImageVal = [currentSettings valueForKey: @"RetainPersonaImageRatio"];
+	if (retainImageVal == NULL)
+	{
+		retainImageRatio = YES;
+	}
+	else
+	{
+		retainImageRatio = [retainImageVal boolValue];
 	}
 	
 	selectedSource = [currentSettings valueForKey: @"ActiveSource"];
@@ -186,7 +212,9 @@
 	{
 		currentSettings = [NSMutableDictionary dictionaryWithCapacity: 1];
 	}
-		
+	
+	[currentSettings setValue: [[[NSBundle mainBundle] infoDictionary] valueForKey: @"CFBundleVersion"] forKey: @"Version"];
+	
 	[currentSettings setValue: [NSString stringWithFormat: @"%.2f", theRefreshTime] forKey: @"RefreshTime"];
 	[currentSettings setValue: selectedSource forKey: @"ActiveSource"];
 	
@@ -194,6 +222,8 @@
 	
 	[currentSettings setValue: [self saveABUsers] forKey: @"ABUsers"];
 	[currentSettings setValue: [self saveABGroups] forKey: @"ABGroups"];
+	[currentSettings setValue: NSStringFromSize(maxImageSize) forKey: @"MaxPersonaImageDimensions"];
+	[currentSettings setValue: retainImageRatio?@"YES":@"NO" forKey: @"RetainPersonaImageRatio"];
 	
 	NSData* defaultPictureFile = [[NSBitmapImageRep imageRepWithData: [theDefaultImage TIFFRepresentation]] representationUsingType: NSPNGFileType properties: nil];
 	
@@ -420,6 +450,16 @@
 	
 	[self refreshABPeoplePicker];
 	
+}
+
+- (NSSize) maxPersonaImageSize
+{
+	return maxImageSize;
+}
+
+- (BOOL) retainPersonaImageRatio
+{
+	return retainImageRatio;
 }
 
 // Combo Box Elements
