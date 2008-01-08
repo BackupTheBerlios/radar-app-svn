@@ -28,6 +28,12 @@
 	NSImage* theDefaultImage;
 	NSSize maxImageSize;
 	BOOL retainImageRatio;
+	BOOL makeImagesBigger;
+	
+	IBOutlet NSTextField* theImageSizeXField;
+	IBOutlet NSTextField* theImageSizeYField;
+	IBOutlet NSButton* theImageRetainSizeButton;
+	IBOutlet NSButton* theMakeImagesBiggerButton;
 	
 	NSTimeInterval theRefreshTime;
 	
@@ -49,8 +55,6 @@
 	@private NSSize Preferences__originalPrefWindowSize;
 	
 	NSDictionary* theSources;
-	
-	unsigned DEBUG__donotwant;
 }
 
 /// The child of the abstract Source class currently active
@@ -104,6 +108,9 @@
 
 /// Returns YES if the persona image ratio should be retained
 - (BOOL) retainPersonaImageRatio;
+
+/// Returns YES if the persona image should also be made bigger
+- (BOOL) makePersonaImageBigger;
 
 /// Called to tidy up
 /** The thePreferencePane NSPanel is reset via resetPreferencePane to prevent

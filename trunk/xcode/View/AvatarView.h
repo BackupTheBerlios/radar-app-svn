@@ -13,9 +13,13 @@
 
 @interface AvatarView : NSView
 {
+	NSDictionary* theAvatarPositions;
 	/// The UserFactory containing all users that are to be displayed
 	IBOutlet UserFactory* theUserFactory;
 	IBOutlet Preferences* thePreferences;
 }
+
+/// Resets the displayed personae.
+- (IBAction) resetPersonae: (id) sender;
 
 @end

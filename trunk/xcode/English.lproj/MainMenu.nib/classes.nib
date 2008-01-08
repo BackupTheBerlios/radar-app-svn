@@ -13,6 +13,11 @@
 			<string>NSControl</string>
 		</dict>
 		<dict>
+			<key>ACTIONS</key>
+			<dict>
+				<key>resetPersonae</key>
+				<string>id</string>
+			</dict>
 			<key>CLASS</key>
 			<string>AvatarView</string>
 			<key>LANGUAGE</key>
@@ -91,6 +96,60 @@
 		<dict>
 			<key>ACTIONS</key>
 			<dict>
+				<key>DEBUG__testAB</key>
+				<string>id</string>
+				<key>applyPreferences</key>
+				<string>id</string>
+				<key>openImagePanelForPreferencesWindow</key>
+				<string>id</string>
+				<key>refreshSourcePreferencesWindow</key>
+				<string>id</string>
+				<key>resetPreferencePane</key>
+				<string>id</string>
+				<key>selectClassFrom</key>
+				<string>id</string>
+				<key>switchABUsage</key>
+				<string>id</string>
+			</dict>
+			<key>CLASS</key>
+			<string>Preferences</string>
+			<key>LANGUAGE</key>
+			<string>ObjC</string>
+			<key>OUTLETS</key>
+			<dict>
+				<key>theABPeoplePicker</key>
+				<string>ABPeoplePickerView</string>
+				<key>theABUsageActivationButton</key>
+				<string>NSButton</string>
+				<key>theDefaultAvatarImageView</key>
+				<string>NSImageView</string>
+				<key>theImageRetainSizeButton</key>
+				<string>NSButton</string>
+				<key>theImageSizeXField</key>
+				<string>NSTextField</string>
+				<key>theImageSizeYField</key>
+				<string>NSTextField</string>
+				<key>theMakeImagesBiggerButton</key>
+				<string>NSButton</string>
+				<key>thePreferencesWindow</key>
+				<string>NSWindow</string>
+				<key>theRefreshTimeField</key>
+				<string>NSTextField</string>
+				<key>theSourceItem</key>
+				<string>NSTabViewItem</string>
+				<key>theSourceSelection</key>
+				<string>NSComboBox</string>
+				<key>theTabView</key>
+				<string>NSTabView</string>
+				<key>theUserFactory</key>
+				<string>UserFactory</string>
+			</dict>
+			<key>SUPERCLASS</key>
+			<string>NSObject</string>
+		</dict>
+		<dict>
+			<key>ACTIONS</key>
+			<dict>
 				<key>addOrRemoveUserByInterface</key>
 				<string>id</string>
 				<key>addUserByInterface</key>
@@ -138,52 +197,6 @@
 				<string>NSImageView</string>
 				<key>theUserTable</key>
 				<string>NSTableView</string>
-			</dict>
-			<key>SUPERCLASS</key>
-			<string>NSObject</string>
-		</dict>
-		<dict>
-			<key>ACTIONS</key>
-			<dict>
-				<key>DEBUG__testAB</key>
-				<string>id</string>
-				<key>applyPreferences</key>
-				<string>id</string>
-				<key>openImagePanelForPreferencesWindow</key>
-				<string>id</string>
-				<key>refreshSourcePreferencesWindow</key>
-				<string>id</string>
-				<key>resetPreferencePane</key>
-				<string>id</string>
-				<key>selectClassFrom</key>
-				<string>id</string>
-				<key>switchABUsage</key>
-				<string>id</string>
-			</dict>
-			<key>CLASS</key>
-			<string>Preferences</string>
-			<key>LANGUAGE</key>
-			<string>ObjC</string>
-			<key>OUTLETS</key>
-			<dict>
-				<key>theABPeoplePicker</key>
-				<string>ABPeoplePickerView</string>
-				<key>theABUsageActivationButton</key>
-				<string>NSButton</string>
-				<key>theDefaultAvatarImageView</key>
-				<string>NSImageView</string>
-				<key>thePreferencesWindow</key>
-				<string>NSWindow</string>
-				<key>theRefreshTimeField</key>
-				<string>NSTextField</string>
-				<key>theSourceItem</key>
-				<string>NSTabViewItem</string>
-				<key>theSourceSelection</key>
-				<string>NSComboBox</string>
-				<key>theTabView</key>
-				<string>NSTabView</string>
-				<key>theUserFactory</key>
-				<string>UserFactory</string>
 			</dict>
 			<key>SUPERCLASS</key>
 			<string>NSObject</string>

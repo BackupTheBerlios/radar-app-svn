@@ -445,9 +445,7 @@
 
 - (void) applicationWillTerminate: (NSNotification*) aNotification
 {
-	NSLog(@"Here?");
 	[self saveUsers: self];
-	NSLog(@"DIE! DIE! DIE!");
 }
 
 

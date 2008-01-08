@@ -1,4 +1,5 @@
 TODO für SEP:
 
-2. Information durch Mouse-Over in AvatarView
 3. Edit ABPersons im AddressBook
+4. Mouse Click Action auf die Bilder
+

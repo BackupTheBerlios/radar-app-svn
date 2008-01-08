@@ -19,7 +19,7 @@
 	<key>CFBundleSignature</key>
 	<string>TRdr</string>
 	<key>CFBundleVersion</key>
-	<string>0.8β</string>
+	<string>0.85β</string>
 	<key>ImageDirectory</key>
 	<string>Images</string>
 	<key>MainPropertyListIdentifier</key>

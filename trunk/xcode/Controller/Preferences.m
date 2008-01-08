@@ -32,7 +32,6 @@
 		[self loadPreferences];
 		DLog(@"Initialized self");
 		
-		DEBUG__donotwant = 0;
 	}
 	return self;
 }
@@ -94,11 +93,21 @@
 {
 	DSetContext(@"resetPreferencePane");
 	
-	DEBUG__donotwant++;
-	DLog(@"CALLTIMES: %d, sender is %@", DEBUG__donotwant, [sender class]);
 	[theDefaultAvatarImageView setImage: theDefaultImage];
 	[theRefreshTimeField setIntValue: theRefreshTime];
 	[theRefreshTimeField sendAction: [theRefreshTimeField action] to: [theRefreshTimeField target]];
+	
+	[theImageSizeXField setIntValue: maxImageSize.width];
+	[theImageSizeYField setIntValue: maxImageSize.height];
+	
+	if (retainImageRatio)
+	{
+		[theImageRetainSizeButton setState: NSOnState];
+	}
+	else
+	{
+		[theImageRetainSizeButton setState: NSOffState];
+	}
 	
 	[self refreshSourcePreferencesWindow: self];
 	
@@ -177,6 +186,16 @@
 		retainImageRatio = [retainImageVal boolValue];
 	}
 	
+	id maxImageVal = [currentSettings valueForKey: @"MakePersonaImagesBigger"];
+	if (maxImageVal == NULL)
+	{
+		makeImagesBigger = YES;
+	}
+	else
+	{
+		makeImagesBigger = [maxImageVal boolValue];
+	}
+	
 	selectedSource = [currentSettings valueForKey: @"ActiveSource"];
 	selectedSource = selectedSource?selectedSource:@"Mail Source";
 	
@@ -224,6 +243,7 @@
 	[currentSettings setValue: [self saveABGroups] forKey: @"ABGroups"];
 	[currentSettings setValue: NSStringFromSize(maxImageSize) forKey: @"MaxPersonaImageDimensions"];
 	[currentSettings setValue: retainImageRatio?@"YES":@"NO" forKey: @"RetainPersonaImageRatio"];
+	[currentSettings setValue: makeImagesBigger?@"YES":@"NO" forKey: @"MakePersonaImagesBigger"];
 	
 	NSData* defaultPictureFile = [[NSBitmapImageRep imageRepWithData: [theDefaultImage TIFFRepresentation]] representationUsingType: NSPNGFileType properties: nil];
 	
@@ -324,11 +344,21 @@
 
 - (IBAction) applyPreferences: (id)sender
 {
+	DSetContext(@"applyPreferences");
 	[theActiveSource applyPreferencePaneSettings];
 	
 	theDefaultImage = [theDefaultAvatarImageView image];
 	theRefreshTime = [theRefreshTimeField floatValue];
 	selectedSource = [theSourceSelection stringValue];
+	
+	useABDirectly = [theABUsageActivationButton state] == NSOnState;
+	
+	maxImageSize.width = [theImageSizeXField intValue];
+	maxImageSize.height = [theImageSizeYField intValue];
+	retainImageRatio = [theImageRetainSizeButton state] == NSOnState;
+	makeImagesBigger = [theMakeImagesBiggerButton state] == NSOnState;
+	
+	DLog(@"retainImageRatio = %d, makeImagesBigger = %d", retainImageRatio, makeImagesBigger);
 	
 	[self readABUsers];
 	
@@ -460,6 +490,11 @@
 - (BOOL) retainPersonaImageRatio
 {
 	return retainImageRatio;
+}
+
+- (BOOL) makePersonaImageBigger
+{
+	return makeImagesBigger;
 }
 
 // Combo Box Elements

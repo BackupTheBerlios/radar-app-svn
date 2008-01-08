@@ -63,7 +63,6 @@
 
 - (NSString*) preferencePaneTitle
 {
-	NSLog(@"Returning %@... hoo", thePreferencePaneTitle);
 	return thePreferencePaneTitle;
 }
 - (void) applyPreferencePaneSettings

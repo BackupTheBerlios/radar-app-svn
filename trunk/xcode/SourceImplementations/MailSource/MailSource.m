@@ -192,16 +192,16 @@
 	}
 	
 	mailboxes = [NSMutableArray arrayWithCapacity: [cursor rowCount]];
-	DLog(@"Mailboxes are %@", mailboxes);
+//	DLog(@"Mailboxes are %@", mailboxes);
 	unsigned i;
 	
-	DLog(@"Commencing Loop, selectedMailboxes is %@", theSelectedMailboxes);
+//	DLog(@"Commencing Loop, selectedMailboxes is %@", theSelectedMailboxes);
 	for (i = 0; i < [cursor rowCount]; ++i)
 	{
 		
 		NSDictionary* theRow = [cursor valuesForRow: i];
 		
-		DLog(@"Row is %@", theRow);
+//		DLog(@"Row is %@", theRow);
 		NSString* theTableURLString = [theRow objectForKey: MS__MailboxesTableURLString];
 		
 		// The object returned is not a string, therefore be careful about this.
