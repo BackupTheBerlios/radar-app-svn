@@ -9,6 +9,7 @@
 #import "AvatarView.h"
 #import "UserFactory.h"
 #import "User.h"
+#import "Preferences.h"
 
 @implementation AvatarView
 
@@ -26,6 +27,8 @@
   */
 - (void)drawRect:(NSRect)rect
 {
+	srandomdev(); // Initialize the random generator
+	
 	NSRect bounds = [self bounds];
 //	NSPoint p = bounds.origin;
 	NSArray* theUsers = [theUserFactory allUsers];
@@ -45,7 +48,6 @@
 	{
 		NSPoint userPos = [[theUsers objectAtIndex: i-1] lastPosition];
 		NSPoint coords = bounds.origin;
-		srandomdev();
 		
 		while (userPos.x < 0.1)
 		{
@@ -65,10 +67,34 @@
 		NSImage* theUserImage = [[theUsers objectAtIndex: i-1] valueForKey: @"theImage"];
 		
 		NSSize newSize = [theUserImage size];
-		float sizeFactor = (100/newSize.width);
-		sizeFactor *= 1.0-(yvalue/2.0);
-		newSize.width *= sizeFactor;		
-		newSize.height *= sizeFactor;
+		NSSize maxSize = [thePreferences maxPersonaImageSize];
+		
+		if ([thePreferences retainPersonaImageRatio])
+		{			
+			float widthSizeFactor = (maxSize.width/newSize.width);
+			float heightSizeFactor = (maxSize.height/newSize.height);
+			float sizeFactor = widthSizeFactor<heightSizeFactor?widthSizeFactor:heightSizeFactor;
+			if (sizeFactor < 1.0)
+			{
+				newSize.width *= sizeFactor;
+				newSize.height *= sizeFactor;
+			}
+		}
+		else
+		{
+			if (newSize.width > maxSize.width)
+			{
+				newSize.width = maxSize.width;
+			}
+			if (newSize.height > maxSize.height)
+			{
+				newSize.height = maxSize.height;
+			}
+				
+		}
+		
+		newSize.width *= 1.0-(yvalue/2.0);
+		newSize.height *= 1.0-(yvalue/2.0);
 		
 		coords.x -= newSize.width/2;
 		

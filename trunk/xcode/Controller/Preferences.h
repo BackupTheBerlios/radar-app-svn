@@ -26,6 +26,9 @@
 	IBOutlet NSTabViewItem* theSourceItem;
 	
 	NSImage* theDefaultImage;
+	NSSize maxImageSize;
+	BOOL retainImageRatio;
+	
 	NSTimeInterval theRefreshTime;
 	
 	BOOL useABDirectly;
@@ -95,6 +98,12 @@
 
 /// Set the preferences in thePreferencePane NSPanel to the current values
 - (IBAction) resetPreferencePane: (id)sender;
+
+/// Return the maximal size an image can get
+- (NSSize) maxPersonaImageSize;
+
+/// Returns YES if the persona image ratio should be retained
+- (BOOL) retainPersonaImageRatio;
 
 /// Called to tidy up
 /** The thePreferencePane NSPanel is reset via resetPreferencePane to prevent

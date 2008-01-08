@@ -9,11 +9,13 @@
 #import <Cocoa/Cocoa.h>
 
 @class UserFactory;
+@class Preferences;
 
 @interface AvatarView : NSView
 {
 	/// The UserFactory containing all users that are to be displayed
 	IBOutlet UserFactory* theUserFactory;
+	IBOutlet Preferences* thePreferences;
 }
 
 @end

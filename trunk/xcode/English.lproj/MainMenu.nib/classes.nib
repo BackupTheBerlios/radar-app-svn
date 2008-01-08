@@ -19,6 +19,8 @@
 			<string>ObjC</string>
 			<key>OUTLETS</key>
 			<dict>
+				<key>thePreferences</key>
+				<string>Preferences</string>
 				<key>theUserFactory</key>
 				<string>UserFactory</string>
 			</dict>
