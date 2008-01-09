@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		351352520D34F42400247502 /* delete_preferences.sh in Resources */ = {isa = PBXBuildFile; fileRef = 351352510D34F42400247502 /* delete_preferences.sh */; };
 		351EB5060C3181940029583C /* ExternalSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 351EB5040C3181940029583C /* ExternalSource.m */; };
 		351EB51E0C3182580029583C /* ExternalSourcePrefPane.nib in Resources */ = {isa = PBXBuildFile; fileRef = 351EB51D0C3182580029583C /* ExternalSourcePrefPane.nib */; };
 		351EB60A0C31C7950029583C /* Sources.m in Sources */ = {isa = PBXBuildFile; fileRef = 351EB6090C31C7950029583C /* Sources.m */; };
@@ -86,6 +87,7 @@
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		32CA4F630368D1EE00C91783 /* Radar_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Radar_Prefix.pch; sourceTree = "<group>"; };
+		351352510D34F42400247502 /* delete_preferences.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = delete_preferences.sh; sourceTree = "<group>"; };
 		351EB5030C3181940029583C /* ExternalSource.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; path = ExternalSource.h; sourceTree = "<group>"; };
 		351EB5040C3181940029583C /* ExternalSource.m */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.objc; path = ExternalSource.m; sourceTree = "<group>"; };
 		351EB51D0C3182580029583C /* ExternalSourcePrefPane.nib */ = {isa = PBXFileReference; lastKnownFileType = wrapper.nib; path = ExternalSourcePrefPane.nib; sourceTree = "<group>"; };
@@ -240,6 +242,7 @@
 			isa = PBXGroup;
 			children = (
 				8D1107320486CEB800E47090 /* Radar.app */,
+				351352510D34F42400247502 /* delete_preferences.sh */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -550,6 +553,7 @@
 				351EB51E0C3182580029583C /* ExternalSourcePrefPane.nib in Resources */,
 				356FEF750C3EB2F300CDD4B0 /* License.pdf in Resources */,
 				35CA1A0E0D19417500D9DAF3 /* SVNSourcePrefPane.nib in Resources */,
+				351352520D34F42400247502 /* delete_preferences.sh in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
