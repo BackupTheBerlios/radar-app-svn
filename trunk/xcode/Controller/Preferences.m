@@ -147,17 +147,24 @@
 	DSetContext(@"Load Main Preferences");
 	NSDictionary* currentSettings = [NSDictionary dictionaryWithContentsOfFile: Preferences__mainPlistPath];
 	
-	if ([[[[NSBundle mainBundle] infoDictionary] valueForKey: @"CFBundleVersion"] isEqualToString: [currentSettings valueForKey: @"Version"]] != NSOrderedSame)
+	if (![[[[NSBundle mainBundle] infoDictionary] valueForKey: @"CFBundleVersion"] isEqualToString: [currentSettings valueForKey: @"Version"]])
 	{
 		DLog(@"Bundle Version and Preferences Version differ!");
-		// TODO: Do some things here - like offering deletion of old versions.
-		DLog(@"TODO: Do some things here - like offering deletion of old versions.");
+		int retval = NSRunAlertPanel(@"New Version", 
+										   @"This new beta version of Radar.app may have problems with the old preferences. You may wish to delete all of them.", @"Delete Preferences", @"Keep Preferences", nil);
+		if (retval == NSAlertDefaultReturn)
+		{
+			//[NSTask launchedTaskWithLaunchPath: @"/bin/sh"
+			//						 arguments: [NSArray arrayWithObject: [[NSBundle mainBundle] pathForResource: @"delete_preferences" ofType:@"sh"]]];
+		}
 	}
 	
-	theRefreshTime = [[currentSettings valueForKey: @"RefreshTime"] floatValue];
-	if (theRefreshTime < 0.01)
+	id refreshTimeVal = [currentSettings valueForKey: @"RefreshTime"];
+	
+	theRefreshTime = [refreshTimeVal floatValue];
+	if (theRefreshTime < 0.01 || refreshTimeVal == NULL)
 	{
-		theRefreshTime = 10.0;
+		theRefreshTime = 30.0;
 	}
 	
 	theDefaultImage = [[NSImage alloc] initWithContentsOfFile: [[self applicationSupportPath] stringByAppendingPathComponent: @"default.png"]];
@@ -260,7 +267,7 @@
 
 - (NSArray*) saveABUsers
 {
-	if (!theABUsers)
+	if ([theABUsers count] == 0)
 	{
 		return NULL;
 	}

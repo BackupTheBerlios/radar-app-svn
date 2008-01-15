@@ -37,6 +37,8 @@
 	DSetContext(@"Drawing Users");
 	NSArray* theUsers = [theUserFactory allUsers];
 	
+	[self removeAllToolTips];
+	
 	unsigned j = [theUsers count];
 	if (j == 0)
 	{

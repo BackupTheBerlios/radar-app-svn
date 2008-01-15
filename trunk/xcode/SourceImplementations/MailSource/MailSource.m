@@ -77,6 +77,13 @@
 	DSetContext(@"scoreUsersInArray: inform: bySending:");
 	DLog(@"Scoring users for %@ by Mail Source...", anObject);
 	
+	if ([theUsers count] == 0)
+	{
+		DLog(@"No users to count... you must be kidding me.");
+		[anObject performSelector: aSelector];
+		return;
+	}
+	
 	QuickLiteDatabase* db = [QuickLiteDatabase databaseWithFile: [@"~/Library/Mail/Envelope Index" stringByExpandingTildeInPath]];
 	
 	DLog(@"Loaded Database %@", db);
